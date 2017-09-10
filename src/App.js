@@ -1,18 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Header from "./components/Header";
+import Results from "./components/Results";
+import { multipleIpodResults } from "./components/Results/tests/mockData";
+import SearchApi from "./services/SearchApi";
+
+import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      results: multipleIpodResults
+    };
+  }
+  handleSubmit = (e, inputQuery) => {
+    e.preventDefault();
+    SearchApi.query(inputQuery)
+      .then(result => {
+        this.setState({ results: result.items });
+      })
+      .catch(error => {
+        console.log("error");
+        console.log(error);
+        //error handling
+      });
+  };
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Header onSubmit={this.handleSubmit} />;
+        <Results results={this.state.results} />;
       </div>
     );
   }
