@@ -1,4 +1,4 @@
-.header {
+header {
   text-align: center;
   background: #0074b8;
   padding: 20px 0;
@@ -10,7 +10,7 @@
 }
 
 .logo {
-  width:100%;
+  width: 100%;
   max-width: 300px;
   flex-shrink: 0;
 }
@@ -26,10 +26,6 @@
 }
 
 @media (min-width: 768px) {
-  .logo {
-
-  }
-
   .query-form {
     padding-left: 15px;
     flex-grow: 6;
@@ -37,11 +33,7 @@
 }
 
 @media (min-width: 992px) {
-  .logo {
-  }
 }
 
 @media (min-width: 1200px) {
-  .logo {
-  }
 }

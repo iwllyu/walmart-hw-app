@@ -15,10 +15,14 @@ class Results extends Component {
       if (index !== 0 && index % 2 === 0) {
         acc.push(
           <Clearfix
+            key={index}
+            className="text-fade-clearfix"
             visibleSmBlock
             visibleMdBlock
             visibleLgBlock={index % 4 === 0}
-          />
+          >
+            <div className="text-fade" />
+          </Clearfix>
         );
       }
       acc.push(this.generateResult(result));
@@ -35,11 +39,9 @@ class Results extends Component {
     }
     return (
       <Col className="product-cell" key={result.itemId} xs={12} sm={6} lg={3}>
-        <img
-          className="thumbnail"
-          src={result.thumbnailImage}
-          alt={result.name}
-        />
+        <div className="thumbnail">
+          <img src={result.thumbnailImage} alt={result.name} />
+        </div>
         <div className="name">{result.name}</div>
         <div className="price">${result.salePrice}</div>
         {decodedDescription && (
@@ -48,12 +50,17 @@ class Results extends Component {
             dangerouslySetInnerHTML={{ __html: decodedDescription }}
           />
         )}
+        <div className="text-fade" />
       </Col>
     );
   };
 
   render() {
-    return <Grid>{this.generateResultList(this.props.results)}</Grid>;
+    return (
+      <Grid>
+        <Row>{this.generateResultList(this.props.results)}</Row>
+      </Grid>
+    );
   }
 }
 

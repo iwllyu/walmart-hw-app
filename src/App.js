@@ -31,6 +31,7 @@ class App extends Component {
       <div>
         <Header onSubmit={this.handleSubmit} />;
         <Results results={this.state.results} />;
+        <footer>Walmart Homework Assignment by William Yu</footer>
       </div>
     );
   }

@@ -26,7 +26,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="header">
+      <header>
         <Grid>
           <Row>
             <Col xs={12} className="header-content">
@@ -42,7 +42,7 @@ class Header extends Component {
                     type="text"
                     value={this.state.query}
                     onChange={this.handleChange}
-                    placeholder="Enter text"
+                    placeholder="Search"
                   />
                   <InputGroup.Button>
                     <Button type="submit">
@@ -54,7 +54,7 @@ class Header extends Component {
             </Col>
           </Row>
         </Grid>
-      </div>
+      </header>
     );
   }
 }
