@@ -1,0 +1,18 @@
+.container .product-cell {
+  padding-top:15px;
+}
+.product-cell {
+  overflow: hidden;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.short-description {
+  overflow: hidden;
+  max-height: 190px;
+  padding-bottom: 20px;
+  text-overflow: ellipse;
+  /* white-space: pre-line;  */
+}

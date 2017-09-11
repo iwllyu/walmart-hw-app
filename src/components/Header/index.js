@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Row, Col, Button, FormControl } from "react-bootstrap";
+import {
+  Grid,
+  Glyphicon,
+  Row,
+  Col,
+  Button,
+  FormControl,
+  InputGroup
+} from "react-bootstrap";
 import "./styles.css";
 import wmBrandWhiteLogo from "./walmart-brand.svg";
 
@@ -18,23 +26,30 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="Header">
+      <div className="header">
         <Grid>
           <Row>
-            <Col xs={12}>
-              <img className="Logo" src={wmBrandWhiteLogo} alt="Walmart Logo" />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <form onSubmit={e => this.props.onSubmit(e, this.state.query)}>
-                <FormControl
-                  type="text"
-                  value={this.state.query}
-                  onChange={this.handleChange}
-                  placeholder="Enter text"
-                />
-                <Button type="submit">Submit</Button>
+            <Col xs={12} className="header-content">
+              <div className="logo">
+                <img src={wmBrandWhiteLogo} alt="Walmart Logo" />
+              </div>
+              <form
+                className="query-form"
+                onSubmit={e => this.props.onSubmit(e, this.state.query)}
+              >
+                <InputGroup>
+                  <FormControl
+                    type="text"
+                    value={this.state.query}
+                    onChange={this.handleChange}
+                    placeholder="Enter text"
+                  />
+                  <InputGroup.Button>
+                    <Button type="submit">
+                      <Glyphicon glyph="search" />
+                    </Button>
+                  </InputGroup.Button>
+                </InputGroup>
               </form>
             </Col>
           </Row>
