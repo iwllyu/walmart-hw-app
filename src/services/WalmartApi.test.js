@@ -1,4 +1,4 @@
-import SearchApi from "./SearchApi";
+import WalmartApi from "./WalmartApi";
 import { apiKey } from "../common";
 
 // let restoreFetch;
@@ -12,9 +12,9 @@ import { apiKey } from "../common";
 //   window.fetch.restore();
 // }
 
-let searchApi;
+let walmartApi;
 beforeEach(() => {
-  searchApi = new SearchApi();
+  walmartApi = new WalmartApi();
 });
 
 describe("fetch", () => {
@@ -36,7 +36,7 @@ describe("fetch", () => {
         });
       });
 
-    let result = searchApi.request(searchUrl, options);
+    let result = walmartApi.request(searchUrl, options);
     return result.then(() => {
       expect(window.fetch.mock.calls[0][0]).toBe(searchUrl);
       expect(window.fetch.mock.calls[0][1]).toBe(options);
@@ -55,7 +55,7 @@ describe("fetch", () => {
         });
       });
     jest.spyOn(console, "error").mockImplementation();
-    let result = searchApi.request(searchUrl, options);
+    let result = walmartApi.request(searchUrl, options);
     return result.then(() => {
       expect(window.fetch.mock.calls[0][0]).toBe(searchUrl);
       expect(window.fetch.mock.calls[0][1]).toBe(options);
@@ -72,7 +72,7 @@ describe("fetch", () => {
         return Promise.reject("error");
       });
     jest.spyOn(console, "error").mockImplementation();
-    let result = searchApi.request(searchUrl, options);
+    let result = walmartApi.request(searchUrl, options);
     return result.catch(() => {
       expect(window.fetch.mock.calls[0][0]).toBe(searchUrl);
       expect(window.fetch.mock.calls[0][1]).toBe(options);
@@ -87,11 +87,11 @@ describe("formats urls", () => {
     const query = "iPhone X";
     const expectedUrl = `v1/search?apiKey=${apiKey}&query=${query}`;
     const spy = jest
-      .spyOn(searchApi, "request")
+      .spyOn(walmartApi, "request")
       .mockImplementation((mockQuery, options) => {
         expect(mockQuery).toEqual(expectedUrl);
       });
-    searchApi.querySearch(query);
+    walmartApi.querySearch(query);
     spy.mockRestore();
   });
 
@@ -99,11 +99,11 @@ describe("formats urls", () => {
     const itemId = "12417832";
     const expectedUrl = `v1/items/${itemId}?apiKey=${apiKey}`;
     const spy = jest
-      .spyOn(searchApi, "request")
+      .spyOn(walmartApi, "request")
       .mockImplementation((mockQuery, options) => {
         expect(mockQuery).toEqual(expectedUrl);
       });
-    searchApi.queryProductLookup(itemId);
+    walmartApi.queryProductLookup(itemId);
     spy.mockRestore();
   });
 
@@ -111,11 +111,11 @@ describe("formats urls", () => {
     const itemId = "12417832";
     const expectedUrl = `v1/nbp?apiKey=${apiKey}&itemId=${itemId}`;
     const spy = jest
-      .spyOn(searchApi, "request")
+      .spyOn(walmartApi, "request")
       .mockImplementation((mockQuery, options) => {
         expect(mockQuery).toEqual(expectedUrl);
       });
-    searchApi.queryRecommendation(itemId);
+    walmartApi.queryRecommendation(itemId);
     spy.mockRestore();
   });
 });

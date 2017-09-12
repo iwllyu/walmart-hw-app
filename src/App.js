@@ -18,7 +18,7 @@ class App extends Component {
   }
   handleSubmit = (e, inputQuery) => {
     e.preventDefault();
-    return this.props.searchApi
+    return this.props.walmartApi
       .querySearch(inputQuery)
       .then(result => {
         this.setState({ results: result.items });
@@ -33,7 +33,7 @@ class App extends Component {
 
   handleSelectItem = itemId => {
     // if (itemId != null) {
-    //   this.props.searchApi.queryProductLookup(itemId).then(result => {
+    //   this.props.walmartApi.queryProductLookup(itemId).then(result => {
     //     // console.log(JSON.stringify(result));
     //     this.setState({ selectedItem: result });
     //   });
@@ -64,7 +64,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  searchApi: PropTypes.object.isRequired
+  walmartApi: PropTypes.object.isRequired
 };
 
 export default App;

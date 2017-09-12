@@ -4,9 +4,9 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import SearchApi from "./services/SearchApi";
+import WalmartApi from "./services/WalmartApi";
 
-let searchApi = new SearchApi();
+let walmartApi = new WalmartApi();
 
-ReactDOM.render(<App searchApi={searchApi} />, document.getElementById('root'));
+ReactDOM.render(<App walmartApi={walmartApi} />, document.getElementById('root'));
 registerServiceWorker();

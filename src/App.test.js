@@ -1,16 +1,16 @@
 import React from "react";
 import { shallow } from "enzyme";
 import App from "./App";
-import SearchApi from "./services/SearchApi";
+import WalmartApi from "./services/WalmartApi";
 
-let searchApi;
+let walmartApi;
 const mockEvent = { preventDefault: () => {} };
 beforeEach(() => {
-  searchApi = new SearchApi();
+  walmartApi = new WalmartApi();
 });
 
 it("renders without crashing", () => {
-  shallow(<App searchApi={searchApi} />);
+  shallow(<App walmartApi={walmartApi} />);
 });
 
 it("calls querySearch when submitted", () => {
@@ -19,11 +19,11 @@ it("calls querySearch when submitted", () => {
     items: ["a, b, c"]
   };
   const promise = Promise.resolve(mockResult);
-  const spy = jest.spyOn(searchApi, "querySearch").mockImplementation(() => {
+  const spy = jest.spyOn(walmartApi, "querySearch").mockImplementation(() => {
     return promise;
   });
 
-  const wrapper = shallow(<App searchApi={searchApi} />);
+  const wrapper = shallow(<App walmartApi={walmartApi} />);
   wrapper.instance().handleSubmit(mockEvent, inputQuery);
 
   return promise.then(() => {
@@ -36,11 +36,11 @@ it("catches querySearch errors", () => {
   const inputQuery = "iPhone X";
   const rejectError = "error";
   const consoleSpy = jest.spyOn(console, "log").mockImplementation();
-  const spy = jest.spyOn(searchApi, "querySearch").mockImplementation(() => {
+  const spy = jest.spyOn(walmartApi, "querySearch").mockImplementation(() => {
     return Promise.reject(rejectError);
   });
 
-  const wrapper = shallow(<App searchApi={searchApi} />);
+  const wrapper = shallow(<App walmartApi={walmartApi} />);
   const promise = wrapper.instance().handleSubmit(mockEvent, inputQuery);
 
   expect.assertions(1);
@@ -52,7 +52,7 @@ it("catches querySearch errors", () => {
 
 it("should handle and clear selected item", () => {
   const testItemId = "12345";
-  const wrapper = shallow(<App searchApi={searchApi} />);
+  const wrapper = shallow(<App walmartApi={walmartApi} />);
   wrapper.instance().handleSelectItem(testItemId);
   expect(wrapper.state().selectedItem).toEqual(testItemId);
 

@@ -1,6 +1,6 @@
 import { apiKey } from "../common";
 
-class SearchApi {
+class WalmartApi {
   // v1/search?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&query=ipod
   searchApiUrl = `v1/search?apiKey=${apiKey}&query={query}`;
 
@@ -43,4 +43,4 @@ class SearchApi {
   };
 }
 
-export default SearchApi;
+export default WalmartApi;
