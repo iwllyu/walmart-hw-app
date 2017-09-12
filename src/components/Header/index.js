@@ -39,6 +39,7 @@ class Header extends Component {
               >
                 <InputGroup>
                   <FormControl
+                    id="SearchInput"
                     type="text"
                     value={this.state.query}
                     onChange={this.handleChange}

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Header from "./components/Header";
 import Results from "./components/Results";
 import { multipleIpodResults } from "./components/Results/tests/mockData";
-import SearchApi from "./services/SearchApi";
 
 import "./App.css";
 
@@ -15,14 +15,16 @@ class App extends Component {
   }
   handleSubmit = (e, inputQuery) => {
     e.preventDefault();
-    SearchApi.query(inputQuery)
+    return this.props.searchApi
+      .querySearch(inputQuery)
       .then(result => {
         this.setState({ results: result.items });
       })
       .catch(error => {
-        console.log("error");
+        console.log("err");
         console.log(error);
-        //error handling
+        // Swallow promise after displaying an error message
+        return Promise.resolve();
       });
   };
 
@@ -36,5 +38,9 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  searchApi: PropTypes.object.isRequired
+};
 
 export default App;

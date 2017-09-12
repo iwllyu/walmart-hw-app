@@ -4,5 +4,9 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import SearchApi from "./services/SearchApi";
+
+let searchApi = new SearchApi();
+
+ReactDOM.render(<App searchApi={searchApi} />, document.getElementById('root'));
 registerServiceWorker();

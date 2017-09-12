@@ -26,7 +26,7 @@ it("can generate a search result item", () => {
   ).toEqual(singleResultRef.appleIpod.name);
   expect(
     resultComponent
-      .find(".thumbnail")
+      .find(".thumbnail img")
       .first()
       .props().src
   ).toEqual(singleResultRef.appleIpod.thumbnailImage);
@@ -35,7 +35,7 @@ it("can generate a search result item", () => {
       .find(".price")
       .first()
       .text()
-  ).toEqual(singleResultRef.appleIpod.salePrice.toString());
+  ).toEqual("$" + singleResultRef.appleIpod.salePrice.toString());
 
   expect(
     resultComponent.find(".short-description").props().dangerouslySetInnerHTML
@@ -46,10 +46,11 @@ it("can generate a search result item", () => {
 it("can dynamically show or hide short description", () => {
   const wrapper = shallow(<Results results={singleResult} />);
   const instance = wrapper.instance();
-  const singleResultWithoutShortDescription = { ...singleResult[0] };
-  delete singleResultWithoutShortDescription.shortDescription;
+  const singleResultWithoutDescriptions = { ...singleResult[0] };
+  delete singleResultWithoutDescriptions.shortDescription;
+  delete singleResultWithoutDescriptions.longDescription;
 
-  const result = instance.generateResult(singleResultWithoutShortDescription);
+  const result = instance.generateResult(singleResultWithoutDescriptions);
   const resultComponent = shallow(result);
   expect(
     resultComponent
@@ -59,7 +60,7 @@ it("can dynamically show or hide short description", () => {
   ).toEqual(singleResultRef.appleIpod.name);
   expect(
     resultComponent
-      .find(".thumbnail")
+      .find(".thumbnail img")
       .first()
       .props().src
   ).toEqual(singleResultRef.appleIpod.thumbnailImage);
@@ -68,7 +69,7 @@ it("can dynamically show or hide short description", () => {
       .find(".price")
       .first()
       .text()
-  ).toEqual(singleResultRef.appleIpod.salePrice.toString());
+  ).toEqual("$" + singleResultRef.appleIpod.salePrice.toString());
   expect(resultComponent.find(".short-description").exists()).toBeFalsy();
 });
 
@@ -88,4 +89,19 @@ it("decodes html entities in strings to display as html", () => {
       .first()
       .html()
   ).toMatch("<p>Whether");
+});
+
+it("uses the long description if short description is undefined", () => {
+  const wrapper = shallow(<Results results={singleResult} />);
+  const instance = wrapper.instance();
+  const singleResultWithLongDescription = { ...singleResult[0] };
+  delete singleResultWithLongDescription.shortDescription;
+  singleResultWithLongDescription.longDescription = "long description";
+
+  const result = instance.generateResult(singleResultWithLongDescription);
+  const resultComponent = shallow(result);
+  expect(
+    resultComponent.find(".short-description").props().dangerouslySetInnerHTML
+      .__html
+  ).toEqual(singleResultWithLongDescription.longDescription);
 });

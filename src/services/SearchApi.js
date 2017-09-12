@@ -1,31 +1,46 @@
 import { apiKey } from "../common";
 
-// http://api.walmartlabs.com/v1/search?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&query=ipod
-const searchApiUrl = `v1/search?apiKey=${apiKey}`;
+class SearchApi {
+  // v1/search?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&query=ipod
+  searchApiUrl = `v1/search?apiKey=${apiKey}&query={query}`;
 
-const queryOptions = {
-  method: "GET",
-  mode: "cors"
-};
+  //  v1/items/12417832?apiKey={apiKey}&lsPublisherId={Your LinkShare Publisher Id}&format=json
+  productLookupApiUrl = `v1/items/{itemId}?apiKey=${apiKey}`;
 
-export const query = inputQuery => {
-  const searchQuery = searchApiUrl + `&query=${inputQuery}`;
-  // const searchQuery = "http://www.reddit.com/r/reactjs.json";
-  return fetch(searchQuery, queryOptions)
-    .then(response => {
-      if (response.ok) {
-        console.log(response);
-        return response.json();
-      }
-      console.error("Error in searchQuery response");
-    })
-    .catch(error => {
-      console.error("Error fetching in searchQuery");
-      console.error(error);
-      return Promise.reject(error);
-    });
-};
+  // v1/nbp?apiKey={apiKey}&itemId={itemID}
+  recommendationApiUrl = `v1/nbp?apiKey=${apiKey}&itemId={itemId}`
 
-export default {
-  query
-};
+  querySearch = query => {
+    const searchQuery = this.searchApiUrl.replace("{query}", query);
+    return this.request(searchQuery);
+  };
+
+  queryProductLookup = itemId => {
+    const lookupQuery = this.productLookupApiUrl.replace("{itemId}", itemId);
+    return this.request(lookupQuery);
+  };
+
+  queryRecommendation = itemId => {
+    const lookupQuery = this.recommendationApiUrl.replace("{itemId}", itemId);
+    return this.request(lookupQuery);
+  };
+
+  request = (url, options) => {
+    return fetch(url, options)
+      .then(response => {
+        if (response.ok) {
+          console.log(response);
+          return response.json();
+        }
+        console.error(`Error executing request ${url}`);
+        console.error(`statusText: ${response.statusText}`);
+      })
+      .catch(error => {
+        console.error("Error fetching request");
+        console.error(error);
+        return Promise.reject(error);
+      });
+  };
+}
+
+export default SearchApi;
