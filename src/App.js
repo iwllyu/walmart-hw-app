@@ -32,13 +32,13 @@ class App extends Component {
   };
 
   handleSelectItem = itemId => {
-    // if (itemId != null) {
-    //   this.props.walmartApi.queryProductLookup(itemId).then(result => {
-    //     // console.log(JSON.stringify(result));
-    //     this.setState({ selectedItem: result });
-    //   });
-    // }
-    this.setState({ selectedItem: productLookup });
+    if (itemId != null) {
+      this.props.walmartApi.queryProductLookup(itemId).then(result => {
+        this.setState({ selectedItem: result });
+      });
+    }
+    // TODO remove me when finished with mocks
+    // this.setState({ selectedItem: productLookup });
   };
 
   handleClearSelectedItem = () => {

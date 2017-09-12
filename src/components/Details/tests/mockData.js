@@ -1,7 +1,8 @@
 export const productLookup = {
   itemId: 42608121,
   parentItemId: 42608121,
-  name: "Apple iPod touch 16GB",
+  name:
+    "Refurbished Apple iPod Touch 4th Gen 16GB WiFi MP3 Digital Music Video Player - Black",
   msrp: 193,
   salePrice: 200,
   upc: "888462350624",

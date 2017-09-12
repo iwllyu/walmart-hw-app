@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Grid, Row, Col, Image } from "react-bootstrap";
 import * as he from "he";
 import "./styles.css";
 
@@ -45,7 +45,7 @@ class Details extends Component {
         <Modal.Body>
           {item && (
             <div>
-              <h1>{item.name}</h1>
+              <h1 className="detail-name">{item.name}</h1>
               <div className="price">${item.salePrice}</div>
               <div>
                 <img
@@ -54,23 +54,26 @@ class Details extends Component {
                   alt="rating"
                 />
               </div>
+
               <div>
-                <img
+                <Image
+                  responsive
                   className="large-image"
                   src={item.largeImage}
                   alt={item.name}
                 />
               </div>
+
               <h3>About The Item</h3>
               {shortDecodedDesc && (
                 <div
-                  className="short-description"
+                  className="detail-short-description"
                   dangerouslySetInnerHTML={{ __html: shortDecodedDesc }}
                 />
               )}
               {longDecodedDesc && (
                 <div
-                  className="long-description"
+                  className="detail-long-description"
                   dangerouslySetInnerHTML={{ __html: longDecodedDesc }}
                 />
               )}
