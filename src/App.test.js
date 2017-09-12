@@ -23,7 +23,7 @@ it("calls querySearch when submitted", () => {
     return promise;
   });
 
-  let wrapper = shallow(<App searchApi={searchApi} />);
+  const wrapper = shallow(<App searchApi={searchApi} />);
   wrapper.instance().handleSubmit(mockEvent, inputQuery);
 
   return promise.then(() => {
@@ -40,7 +40,7 @@ it("catches querySearch errors", () => {
     return Promise.reject(rejectError);
   });
 
-  let wrapper = shallow(<App searchApi={searchApi} />);
+  const wrapper = shallow(<App searchApi={searchApi} />);
   const promise = wrapper.instance().handleSubmit(mockEvent, inputQuery);
 
   expect.assertions(1);
@@ -48,4 +48,14 @@ it("catches querySearch errors", () => {
     expect(consoleSpy).toHaveBeenCalled();
     spy.mockRestore();
   });
+});
+
+it("should handle and clear selected item", () => {
+  const testItemId = "12345";
+  const wrapper = shallow(<App searchApi={searchApi} />);
+  wrapper.instance().handleSelectItem(testItemId);
+  expect(wrapper.state().selectedItem).toEqual(testItemId);
+
+  wrapper.instance().clearSelectedItem();
+  expect(wrapper.state().selectedItem).toBeNull();
 });

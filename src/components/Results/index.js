@@ -16,13 +16,10 @@ class Results extends Component {
         acc.push(
           <Clearfix
             key={index}
-            className="text-fade-clearfix"
             visibleSmBlock
             visibleMdBlock
             visibleLgBlock={index % 4 === 0}
-          >
-            <div className="text-fade" />
-          </Clearfix>
+          />
         );
       }
       acc.push(this.generateResult(result));
@@ -39,10 +36,18 @@ class Results extends Component {
     }
     return (
       <Col className="product-cell" key={result.itemId} xs={12} sm={6} lg={3}>
-        <div className="thumbnail">
+        <div
+          className="thumbnail"
+          onClick={() => this.props.onSelect(result.itemId)}
+        >
           <img src={result.thumbnailImage} alt={result.name} />
         </div>
-        <div className="name">{result.name}</div>
+        <div
+          className="name"
+          onClick={() => this.props.onSelect(result.itemId)}
+        >
+          {result.name}
+        </div>
         <div className="price">${result.salePrice}</div>
         {decodedDescription && (
           <div
@@ -65,7 +70,8 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-  results: PropTypes.array.isRequired
+  results: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
 export default Results;

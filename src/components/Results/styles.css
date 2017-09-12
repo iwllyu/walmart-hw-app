@@ -11,19 +11,25 @@
   font-weight: bold;
 }
 
+.name:hover,
+.thumbnail:hover {
+  cursor: pointer;
+}
+
+.text-fade {
+  display: block;
+  position: absolute;
+  bottom: -5px;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
 @media (max-width: 767px) {
-  .product-cell .text-fade {
-    display: block;
-    position: absolute;
-    bottom: -5px;
-    width: 100%;
-    height: 60px;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  }
 }
 
 /* At least Two Columns */
@@ -43,20 +49,7 @@
     flex: 1;
   }
 
-  .text-fade-clearfix {
-    position: relative;
-  }
-  .text-fade {
-    flex: none;
-    display: block;
-    position: absolute;
-    bottom: -5px;
-    width: 100%;
-    height: 60px;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
+  .clearfix {
+    z-index: -1;
   }
 }

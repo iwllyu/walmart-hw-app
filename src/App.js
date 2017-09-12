@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Header from "./components/Header";
 import Results from "./components/Results";
+import Details from "./components/Details";
 import { multipleIpodResults } from "./components/Results/tests/mockData";
+import { productLookup } from "./components/Details/tests/mockData";
 
 import "./App.css";
 
@@ -10,7 +12,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: multipleIpodResults
+      results: multipleIpodResults,
+      selectedItem: null
     };
   }
   handleSubmit = (e, inputQuery) => {
@@ -28,11 +31,32 @@ class App extends Component {
       });
   };
 
+  handleSelectItem = itemId => {
+    // if (itemId != null) {
+    //   this.props.searchApi.queryProductLookup(itemId).then(result => {
+    //     // console.log(JSON.stringify(result));
+    //     this.setState({ selectedItem: result });
+    //   });
+    // }
+    this.setState({ selectedItem: productLookup });
+  };
+
+  handleClearSelectedItem = () => {
+    this.setState({ selectedItem: null });
+  };
+
   render() {
     return (
       <div>
         <Header onSubmit={this.handleSubmit} />;
-        <Results results={this.state.results} />;
+        <Results
+          results={this.state.results}
+          onSelect={this.handleSelectItem}
+        />;
+        <Details
+          item={this.state.selectedItem}
+          onClearSelect={this.handleClearSelectedItem}
+        />;
         <footer>Walmart Homework Assignment by William Yu</footer>
       </div>
     );
