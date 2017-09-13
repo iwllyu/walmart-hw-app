@@ -1,22 +1,22 @@
-.container .product-cell {
+.container .result-cell {
   padding-top: 15px;
 }
 
-.product-cell {
+.result-cell {
   max-height: 300px;
   overflow: hidden;
 }
 
-.name {
+.result-name {
   font-weight: bold;
 }
 
-.name:hover,
-.thumbnail:hover {
+.result-name:hover,
+.result-thumbnail:hover {
   cursor: pointer;
 }
 
-.text-fade {
+.result-text-fade {
   display: block;
   position: absolute;
   bottom: -5px;
@@ -29,27 +29,22 @@
   );
 }
 
-@media (max-width: 767px) {
+.result-thumbnail {
+  padding: 4px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.result-thumbnail > img {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
 }
 
 /* At least Two Columns */
 @media (min-width: 768px) {
-  .product-cell {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .thumbnail,
-  .name,
-  .price {
-    flex: 1;
-  }
-
-  .short-description {
-    flex: 1;
-  }
-
-  .clearfix {
+  .result-grid .clearfix {
     z-index: -1;
   }
 }

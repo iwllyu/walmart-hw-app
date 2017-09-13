@@ -40,34 +40,34 @@ class Results extends Component {
       decodedDescription = he.decode(result.longDescription);
     }
     return (
-      <Col className="product-cell" key={result.itemId} xs={12} sm={6} lg={3}>
+      <Col className="result-cell" key={result.itemId} xs={12} sm={6} lg={3}>
         <div
-          className="thumbnail"
+          className="result-thumbnail"
           onClick={() => this.props.onSelect(result.itemId)}
         >
           <img src={result.thumbnailImage} alt={result.name} />
         </div>
         <div
-          className="name"
+          className="result-name"
           onClick={() => this.props.onSelect(result.itemId)}
         >
           {result.name}
         </div>
-        <div className="price">${result.salePrice}</div>
+        <div className="result-price">${result.salePrice}</div>
         {decodedDescription && (
           <div
-            className="short-description"
+            className="result-short-description"
             dangerouslySetInnerHTML={{ __html: decodedDescription }}
           />
         )}
-        <div className="text-fade" />
+        <div className="result-text-fade" />
       </Col>
     );
   };
 
   render() {
     return (
-      <Grid>
+      <Grid className="result-grid">
         <Row>{this.generateResultList(this.props.results)}</Row>
       </Grid>
     );

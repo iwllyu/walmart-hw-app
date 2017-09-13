@@ -22,26 +22,26 @@ it("can generate a search result item", () => {
   const resultComponent = shallow(result);
   expect(
     resultComponent
-      .find(".name")
+      .find(".result-name")
       .first()
       .text()
   ).toEqual(singleResultRef.appleIpod.name);
   expect(
     resultComponent
-      .find(".thumbnail img")
+      .find(".result-thumbnail img")
       .first()
       .props().src
   ).toEqual(singleResultRef.appleIpod.thumbnailImage);
   expect(
     resultComponent
-      .find(".price")
+      .find(".result-price")
       .first()
       .text()
   ).toEqual("$" + singleResultRef.appleIpod.salePrice.toString());
 
   expect(
-    resultComponent.find(".short-description").props().dangerouslySetInnerHTML
-      .__html
+    resultComponent.find(".result-short-description").props()
+      .dangerouslySetInnerHTML.__html
   ).toEqual(singleResultRef.appleIpod.shortDescription);
 });
 
@@ -54,11 +54,11 @@ it("handles click on thumbnail and name", () => {
   const result = instance.generateResult(singleResult[0]);
   const resultComponent = shallow(result);
   resultComponent
-    .find(".name")
+    .find(".result-name")
     .first()
     .simulate("click");
   resultComponent
-    .find(".thumbnail")
+    .find(".result-thumbnail")
     .first()
     .simulate("click");
   expect(clickSpy).toHaveBeenCalledTimes(2);
@@ -77,30 +77,32 @@ it("can dynamically show or hide short description", () => {
   const resultComponent = shallow(result);
   expect(
     resultComponent
-      .find(".name")
+      .find(".result-name")
       .first()
       .text()
   ).toEqual(singleResultRef.appleIpod.name);
   expect(
     resultComponent
-      .find(".thumbnail img")
+      .find(".result-thumbnail img")
       .first()
       .props().src
   ).toEqual(singleResultRef.appleIpod.thumbnailImage);
   expect(
     resultComponent
-      .find(".price")
+      .find(".result-price")
       .first()
       .text()
   ).toEqual("$" + singleResultRef.appleIpod.salePrice.toString());
-  expect(resultComponent.find(".short-description").exists()).toBeFalsy();
+  expect(
+    resultComponent.find(".result-short-description").exists()
+  ).toBeFalsy();
 });
 
 it("can generate a search result list", () => {
   const wrapper = shallow(
     <Results results={multipleIpodResults} onSelect={jest.fn()} />
   );
-  expect(wrapper.find(".name")).toHaveLength(multipleIpodResults.length);
+  expect(wrapper.find(".result-name")).toHaveLength(multipleIpodResults.length);
 });
 
 it("decodes html entities in strings to display as html", () => {
@@ -112,7 +114,7 @@ it("decodes html entities in strings to display as html", () => {
   expect(srcShortDescription).toMatch("&lt;p&gt;Whether");
   expect(
     wrapper
-      .find(".short-description")
+      .find(".result-short-description")
       .first()
       .html()
   ).toMatch("<p>Whether");
@@ -130,7 +132,7 @@ it("uses the long description if short description is undefined", () => {
   const result = instance.generateResult(singleResultWithLongDescription);
   const resultComponent = shallow(result);
   expect(
-    resultComponent.find(".short-description").props().dangerouslySetInnerHTML
-      .__html
+    resultComponent.find(".result-short-description").props()
+      .dangerouslySetInnerHTML.__html
   ).toEqual(singleResultWithLongDescription.longDescription);
 });
