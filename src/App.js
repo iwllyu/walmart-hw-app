@@ -9,6 +9,10 @@ import { productLookup } from "./components/Details/tests/mockData";
 import "./App.css";
 
 class App extends Component {
+  static propTypes = {
+    walmartApi: PropTypes.object.isRequired
+  };
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -24,19 +28,24 @@ class App extends Component {
         this.setState({ results: result.items });
       })
       .catch(error => {
-        console.log("err");
-        console.log(error);
+        console.log("Error during querySearch: ", error);
         // Swallow promise after displaying an error message
         return Promise.resolve();
       });
   };
 
   handleSelectItem = itemId => {
-    if (itemId != null) {
-      this.props.walmartApi.queryProductLookup(itemId).then(result => {
+    return this.props.walmartApi
+      .queryProductLookup(itemId)
+      .then(result => {
         this.setState({ selectedItem: result });
+      })
+      .catch(error => {
+        console.log("Error during queryProductLookup: ", error);
+        console.log(error);
+        // Swallow promise after displaying an error message
+        return Promise.resolve();
       });
-    }
     // TODO remove me when finished with mocks
     // this.setState({ selectedItem: productLookup });
   };
@@ -62,9 +71,5 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  walmartApi: PropTypes.object.isRequired
-};
 
 export default App;

@@ -5,6 +5,11 @@ import * as he from "he";
 import "./styles.css";
 
 class Details extends Component {
+  static propTypes = {
+    item: PropTypes.object,
+    onClearSelect: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +18,7 @@ class Details extends Component {
     };
   }
 
-  handleClose = () => {
+  handleOnHide = () => {
     this.setState({ startClosingModal: true });
   };
 
@@ -37,8 +42,9 @@ class Details extends Component {
 
     return (
       <Modal
+        className="detail-modal"
         show={!this.state.startClosingModal && item != null}
-        onHide={this.handleClose}
+        onHide={this.handleOnHide}
         onExited={this.handleOnExited}
         bsSize="large"
       >
@@ -63,7 +69,6 @@ class Details extends Component {
                   alt={item.name}
                 />
               </div>
-
               <h3>About The Item</h3>
               {shortDecodedDesc && (
                 <div
@@ -81,16 +86,11 @@ class Details extends Component {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.handleClose}>Close</Button>
+          <Button className="detail-hide" onClick={this.handleOnHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 }
-
-Details.propTypes = {
-  item: PropTypes.object,
-  onClearSelect: PropTypes.func.isRequired
-};
 
 export default Details;

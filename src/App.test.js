@@ -46,16 +46,45 @@ it("catches querySearch errors", () => {
   expect.assertions(1);
   return promise.then(() => {
     expect(consoleSpy).toHaveBeenCalled();
+    consoleSpy.mockRestore();
     spy.mockRestore();
   });
 });
 
 it("should handle and clear selected item", () => {
-  const testItemId = "12345";
+  const testItem = { name: "testItem" };
+  const spy = jest
+    .spyOn(walmartApi, "queryProductLookup")
+    .mockImplementation(() => {
+      return Promise.resolve(testItem);
+    });
   const wrapper = shallow(<App walmartApi={walmartApi} />);
-  wrapper.instance().handleSelectItem(testItemId);
-  expect(wrapper.state().selectedItem).toEqual(testItemId);
+  const promise = wrapper.instance().handleSelectItem("12345");
 
-  wrapper.instance().clearSelectedItem();
-  expect(wrapper.state().selectedItem).toBeNull();
+  expect.assertions(2);
+  return promise.then(() => {
+    expect(wrapper.state().selectedItem).toEqual(testItem);
+    wrapper.instance().handleClearSelectedItem();
+    expect(wrapper.state().selectedItem).toBeNull();
+    spy.mockRestore();
+  });
+});
+
+it("catches queryProductLookup errors", () => {
+  const rejectError = "error";
+  const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+  const spy = jest
+    .spyOn(walmartApi, "queryProductLookup")
+    .mockImplementation(() => {
+      return Promise.reject(rejectError);
+    });
+  const wrapper = shallow(<App walmartApi={walmartApi} />);
+  const promise = wrapper.instance().handleSelectItem("12345");
+
+  expect.assertions(1);
+  return promise.then(() => {
+    expect(consoleSpy).toHaveBeenCalled();
+    spy.mockRestore();
+    consoleSpy.mockRestore();
+  });
 });

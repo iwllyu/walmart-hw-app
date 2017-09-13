@@ -5,6 +5,11 @@ import * as he from "he";
 import "./styles.css";
 
 class Results extends Component {
+  static propTypes = {
+    results: PropTypes.array.isRequired,
+    onSelect: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -68,10 +73,5 @@ class Results extends Component {
     );
   }
 }
-
-Results.propTypes = {
-  results: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired
-};
 
 export default Results;

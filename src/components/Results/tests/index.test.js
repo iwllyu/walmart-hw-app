@@ -10,11 +10,13 @@ import {
 } from "./mockData";
 
 it("renders without crashing", () => {
-  shallow(<Results results={singleResult} />);
+  shallow(<Results results={singleResult} onSelect={jest.fn()} />);
 });
 
 it("can generate a search result item", () => {
-  const wrapper = shallow(<Results results={singleResult} />);
+  const wrapper = shallow(
+    <Results results={singleResult} onSelect={jest.fn()} />
+  );
   const instance = wrapper.instance();
   const result = instance.generateResult(singleResult[0]);
   const resultComponent = shallow(result);
@@ -43,8 +45,29 @@ it("can generate a search result item", () => {
   ).toEqual(singleResultRef.appleIpod.shortDescription);
 });
 
+it("handles click on thumbnail and name", () => {
+  const clickSpy = jest.fn();
+  const wrapper = shallow(
+    <Results results={singleResult} onSelect={clickSpy} />
+  );
+  const instance = wrapper.instance();
+  const result = instance.generateResult(singleResult[0]);
+  const resultComponent = shallow(result);
+  resultComponent
+    .find(".name")
+    .first()
+    .simulate("click");
+  resultComponent
+    .find(".thumbnail")
+    .first()
+    .simulate("click");
+  expect(clickSpy).toHaveBeenCalledTimes(2);
+});
+
 it("can dynamically show or hide short description", () => {
-  const wrapper = shallow(<Results results={singleResult} />);
+  const wrapper = shallow(
+    <Results results={singleResult} onSelect={jest.fn()} />
+  );
   const instance = wrapper.instance();
   const singleResultWithoutDescriptions = { ...singleResult[0] };
   delete singleResultWithoutDescriptions.shortDescription;
@@ -74,12 +97,16 @@ it("can dynamically show or hide short description", () => {
 });
 
 it("can generate a search result list", () => {
-  const wrapper = shallow(<Results results={multipleIpodResults} />);
+  const wrapper = shallow(
+    <Results results={multipleIpodResults} onSelect={jest.fn()} />
+  );
   expect(wrapper.find(".name")).toHaveLength(multipleIpodResults.length);
 });
 
 it("decodes html entities in strings to display as html", () => {
-  const wrapper = shallow(<Results results={multipleIpodResults} />);
+  const wrapper = shallow(
+    <Results results={multipleIpodResults} onSelect={jest.fn()} />
+  );
   const srcShortDescription =
     multipleIpodResultsRef.iPodTouch16GB.shortDescription;
   expect(srcShortDescription).toMatch("&lt;p&gt;Whether");
@@ -92,7 +119,9 @@ it("decodes html entities in strings to display as html", () => {
 });
 
 it("uses the long description if short description is undefined", () => {
-  const wrapper = shallow(<Results results={singleResult} />);
+  const wrapper = shallow(
+    <Results results={singleResult} onSelect={jest.fn()} />
+  );
   const instance = wrapper.instance();
   const singleResultWithLongDescription = { ...singleResult[0] };
   delete singleResultWithLongDescription.shortDescription;

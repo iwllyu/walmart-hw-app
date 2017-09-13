@@ -13,6 +13,10 @@ import "./styles.css";
 import wmBrandWhiteLogo from "./walmart-brand.svg";
 
 class Header extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -59,9 +63,5 @@ class Header extends Component {
     );
   }
 }
-
-Header.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
 
 export default Header;
