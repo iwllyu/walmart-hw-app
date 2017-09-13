@@ -29,7 +29,6 @@ class WalmartApi {
     return fetch(url, options)
       .then(response => {
         if (response.ok) {
-          console.log(response);
           return response.json();
         }
         console.error(`Error executing request ${url}`);

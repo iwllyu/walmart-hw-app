@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Modal, Button, Grid, Row, Col, Image } from "react-bootstrap";
+import { Modal, Button, Image } from "react-bootstrap";
 import * as he from "he";
 import "./styles.css";
 
@@ -59,6 +59,7 @@ class Details extends Component {
                   src={item.customerRatingImage}
                   alt="rating"
                 />
+                {/*TODO numReviews*/}
               </div>
 
               <div>
@@ -69,6 +70,7 @@ class Details extends Component {
                   alt={item.name}
                 />
               </div>
+              {this.props.recommendedItems}
               <h3>About The Item</h3>
               {shortDecodedDesc && (
                 <div

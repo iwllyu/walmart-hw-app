@@ -1,0 +1,55 @@
+.recommendation-section {
+  margin: 15px;
+}
+.recommendation-header {
+  font-size: 18px;
+  font-weight: bold;
+}
+.recommendation-list {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.recommendation-cell {
+  display: inline-block;
+  width: 150px;
+  white-space:normal;
+  vertical-align: top;
+  margin-right:10px;
+}
+
+.recommendation-cell:last-child {
+  margin-right:0px;
+}
+
+.recommendation-thumbnail {
+  padding: 4px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: relative;
+}
+
+.recommendation-thumbnail > img {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
+.recommendation-price {
+  background-color: rgba(255, 255, 255, .8);
+  color: #0074b8;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 4px;
+  border-top-right-radius: 12px;
+}
+
+.recommendation-name {
+  height: 60px;
+  overflow:hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+}

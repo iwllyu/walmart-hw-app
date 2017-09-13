@@ -6,7 +6,7 @@ import "./styles.css";
 
 class Results extends Component {
   static propTypes = {
-    results: PropTypes.array.isRequired,
+    results: PropTypes.array,
     onSelect: PropTypes.func.isRequired
   };
 
@@ -16,20 +16,22 @@ class Results extends Component {
   }
 
   generateResultList = results => {
-    return results.reduce((acc, result, index) => {
-      if (index !== 0 && index % 2 === 0) {
-        acc.push(
-          <Clearfix
-            key={index}
-            visibleSmBlock
-            visibleMdBlock
-            visibleLgBlock={index % 4 === 0}
-          />
-        );
-      }
-      acc.push(this.generateResult(result));
-      return acc;
-    }, []);
+    if (results) {
+      return results.reduce((acc, result, index) => {
+        if (index !== 0 && index % 2 === 0) {
+          acc.push(
+            <Clearfix
+              key={index}
+              visibleSmBlock
+              visibleMdBlock
+              visibleLgBlock={index % 4 === 0}
+            />
+          );
+        }
+        acc.push(this.generateResult(result));
+        return acc;
+      }, []);
+    }
   };
 
   generateResult = result => {
