@@ -6,11 +6,13 @@ by William Yu
 1. Install [Node](https://nodejs.org/en/)
 2. Clone the repo
 3. In the project dir, run `npm i` in your terminal
+    - this might take awhile, run with `npm i --verbose` if it seems like it's hanging
 4. To run tests, run `npm test`
 5. For coverage, run `npm test -- --coverage`
     - Coverage is at /coverage/lcov-report/index.html
 6. To launch the dev server, run `REACT_APP_API_KEY=yourapikey npm start`
     - The app will be available at http://localhost:3000/
+    - Alternatively, you can place your api key in src/common.js for `apiKey`
 
 ## Overview
 
