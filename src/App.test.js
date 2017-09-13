@@ -53,28 +53,42 @@ it("catches querySearch errors", () => {
 
 it("should handle and clear selected item", () => {
   const testItem = { name: "testItem" };
-  const spy = jest
+  const recItem = [{ name: "recItem" }];
+  const lookupSpy = jest
     .spyOn(walmartApi, "queryProductLookup")
     .mockImplementation(() => {
       return Promise.resolve(testItem);
     });
+  const recSpy = jest
+    .spyOn(walmartApi, "queryRecommendation")
+    .mockImplementation(() => {
+      return Promise.resolve(recItem);
+    });
   const wrapper = shallow(<App walmartApi={walmartApi} />);
   const promise = wrapper.instance().handleSelectItem("12345");
 
-  expect.assertions(2);
+  expect.assertions(4);
   return promise.then(() => {
     expect(wrapper.state().selectedItem).toEqual(testItem);
+    expect(wrapper.state().recommendedItems).toEqual(recItem);
     wrapper.instance().handleClearSelectedItem();
     expect(wrapper.state().selectedItem).toBeNull();
-    spy.mockRestore();
+    expect(wrapper.state().recommendedItems).toBeNull();
+    lookupSpy.mockRestore();
+    recSpy.mockRestore();
   });
 });
 
-it("catches queryProductLookup errors", () => {
+it("catches selectItem errors", () => {
   const rejectError = "error";
   const consoleSpy = jest.spyOn(console, "log").mockImplementation();
-  const spy = jest
+  const lookupSpy = jest
     .spyOn(walmartApi, "queryProductLookup")
+    .mockImplementation(() => {
+      return Promise.reject(rejectError);
+    });
+  const recSpy = jest
+    .spyOn(walmartApi, "queryRecommendation")
     .mockImplementation(() => {
       return Promise.reject(rejectError);
     });
@@ -84,7 +98,33 @@ it("catches queryProductLookup errors", () => {
   expect.assertions(1);
   return promise.then(() => {
     expect(consoleSpy).toHaveBeenCalled();
-    spy.mockRestore();
+    lookupSpy.mockRestore();
+    recSpy.mockRestore();
+    consoleSpy.mockRestore();
+  });
+});
+
+it("queryRecommendation resolves with an error", () => {
+  const rejectError = "error";
+  const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+  const lookupSpy = jest
+    .spyOn(walmartApi, "queryProductLookup")
+    .mockImplementation(() => {
+      return Promise.reject(rejectError);
+    });
+  const recSpy = jest
+    .spyOn(walmartApi, "queryRecommendation")
+    .mockImplementation(() => {
+      return Promise.resolve({ errors: "some error" });
+    });
+  const wrapper = shallow(<App walmartApi={walmartApi} />);
+  const promise = wrapper.instance().handleSelectItem("12345");
+
+  expect.assertions(1);
+  return promise.then(() => {
+    expect(consoleSpy).toHaveBeenCalled();
+    lookupSpy.mockRestore();
+    recSpy.mockRestore();
     consoleSpy.mockRestore();
   });
 });

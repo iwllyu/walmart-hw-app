@@ -8,7 +8,7 @@ class WalmartApi {
   productLookupApiUrl = `v1/items/{itemId}?apiKey=${apiKey}`;
 
   // v1/nbp?apiKey={apiKey}&itemId={itemID}
-  recommendationApiUrl = `v1/nbp?apiKey=${apiKey}&itemId={itemId}`
+  recommendationApiUrl = `v1/nbp?apiKey=${apiKey}&itemId={itemId}`;
 
   querySearch = query => {
     const searchQuery = this.searchApiUrl.replace("{query}", query);

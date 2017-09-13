@@ -4,7 +4,7 @@ import "./styles.css";
 
 class Recommended extends Component {
   static propTypes = {
-    recommendedItems: PropTypes.element
+    items: PropTypes.array
   };
 
   generateCell = item => {
@@ -25,8 +25,7 @@ class Recommended extends Component {
         <div className="recommendation-section">
           <div className="recommendation-header">Customers also considered</div>
           <div className="recommendation-list">
-            {this.props.items &&
-              this.props.items.map(item => this.generateCell(item))}
+            {this.props.items.map(item => this.generateCell(item))}
           </div>
         </div>
       );

@@ -7,7 +7,8 @@ import "./styles.css";
 class Details extends Component {
   static propTypes = {
     item: PropTypes.object,
-    onClearSelect: PropTypes.func.isRequired
+    onClearSelect: PropTypes.func.isRequired,
+    recommendedItems: PropTypes.element
   };
 
   constructor(props) {
@@ -59,7 +60,6 @@ class Details extends Component {
                   src={item.customerRatingImage}
                   alt="rating"
                 />
-                {/*TODO numReviews*/}
               </div>
 
               <div>
