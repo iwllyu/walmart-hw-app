@@ -65,8 +65,9 @@ class App extends Component {
   };
 
   render() {
+    const isFullScreen = this.state.results ? "" : "full-screen";
     return (
-      <div className="app-container">
+      <div className={`app-container ${isFullScreen}`}>
         <Header onSubmit={this.handleSubmit} />
         <Results
           results={this.state.results}

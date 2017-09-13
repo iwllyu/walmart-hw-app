@@ -1,6 +1,17 @@
-footer {
-  color: white;
-  text-align: center;
-  background: #0074b8;
-  padding: 20px 0;
+.full-screen {
+  background-color: #0074b8;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+.full-screen header {
+  position: relative;
+  top: calc(50vh - 150px);
+}
+
+@media (min-width: 768px) {
+  .full-screen .header-content {
+    flex-direction: column;
+  }
 }
